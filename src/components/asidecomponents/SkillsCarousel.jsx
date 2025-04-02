@@ -1,12 +1,14 @@
-import React from 'react';
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useTheme } from '../../contexts/ThemeContext';
 import { DiHtml5, DiCss3, DiBootstrap, DiJavascript, DiReact, DiAngularSimple, DiNodejs, DiDatabase, DiMongodb, DiPython, DiJava, DiLinux } from 'react-icons/di';
 import { SiPandas } from 'react-icons/si';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const SkillsCarousel = () => {
+  const { isDark } = useTheme();
   const scrollRef = useRef(null);
   const [showArrows, setShowArrows] = useState({ left: false, right: true });
+
   const skills = [
     { name: 'HTML', icon: <DiHtml5 />, learned: true },
     { name: 'CSS', icon: <DiCss3 />, learned: true },
@@ -23,7 +25,7 @@ const SkillsCarousel = () => {
     { name: 'Linux', icon: <DiLinux />, learned: false }
   ];
 
-  const checkScroll = () => {
+  const checkScroll = useCallback(() => {
     if (scrollRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
       setShowArrows({
@@ -31,7 +33,7 @@ const SkillsCarousel = () => {
         right: scrollLeft < scrollWidth - clientWidth
       });
     }
-  };
+  }, []);
 
   const handleScroll = (direction) => {
     const container = scrollRef.current;
@@ -42,7 +44,7 @@ const SkillsCarousel = () => {
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
       });
-      setTimeout(checkScroll, 500);
+      setTimeout(checkScroll, 300);
     }
   };
 
@@ -50,27 +52,27 @@ const SkillsCarousel = () => {
     checkScroll();
     window.addEventListener('resize', checkScroll);
     return () => window.removeEventListener('resize', checkScroll);
-  }, []);
+  }, [checkScroll]);
 
   return (
-    <div className="relative group overflow-hidden py-8">
+    <div className={`relative group overflow-hidden py-8 ${isDark ? 'bg-gray-900' : ''}`}>
       {/* Botões de navegação */}
       <button 
         onClick={() => handleScroll('left')}
-        className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all ${
+        className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full shadow-lg hover:shadow-xl transition-all ${
           !showArrows.left ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
+        } ${isDark ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'}`}
       >
-        <FiChevronLeft className="w-6 h-6 text-gray-600" />
+        <FiChevronLeft className={`w-6 h-6 ${isDark ? 'text-gray-300' : 'text-gray-600'}`} />
       </button>
       
       <button 
         onClick={() => handleScroll('right')}
-        className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all ${
+        className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full shadow-lg hover:shadow-xl transition-all ${
           !showArrows.right ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
+        } ${isDark ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'}`}
       >
-        <FiChevronRight className="w-6 h-6 text-gray-600" />
+        <FiChevronRight className={`w-6 h-6 ${isDark ? 'text-gray-300' : 'text-gray-600'}`} />
       </button>
 
       {/* Carrossel */}
@@ -85,15 +87,20 @@ const SkillsCarousel = () => {
             className="flex flex-col items-center shrink-0 transition-all duration-300 hover:scale-105"
           >
             <div className={`
-              w-20 h-20 rounded-full bg-white shadow-lg flex items-center justify-center
-              border-2 ${skill.learned ? 'border-gray-100' : 'border-dashed border-gray-200'}
+              w-20 h-20 rounded-full shadow-lg flex items-center justify-center
+              border-2 ${skill.learned ? (isDark ? 'border-gray-700' : 'border-gray-100') : 'border-dashed'} 
               ${!skill.learned && 'grayscale opacity-50'}
+              ${isDark ? 'bg-gray-800' : 'bg-white'}
             `}>
-              <span className={`text-4xl ${skill.learned ? 'text-blue-500' : 'text-gray-300'}`}>
+              <span className={`text-4xl ${skill.learned ? (isDark ? 'text-blue-400' : 'text-blue-500') : 'text-gray-300'}`}>
                 {skill.icon}
               </span>
             </div>
-            <span className={`mt-2 text-sm font-medium ${skill.learned ? 'text-gray-700' : 'text-gray-400'}`}>
+            <span className={`mt-2 text-sm font-medium ${
+              skill.learned 
+                ? (isDark ? 'text-gray-300' : 'text-gray-700') 
+                : (isDark ? 'text-gray-500' : 'text-gray-400')
+            }`}>
               {skill.name}
             </span>
           </div>
