@@ -1,9 +1,15 @@
 import React from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
-import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaWhatsapp } from 'react-icons/fa';
 
 const ContactContent = () => {
   const { isDark } = useTheme();
+
+  // Configuração do PDF - Coloque seu arquivo na pasta public/files/cv.pdf
+  const cvPdfUrl = '/files/cv.pdf'; // Caminho relativo a partir da pasta public
+  
+  // Link do WhatsApp - Substitua o número completo (com país e DDD)
+  const whatsappUrl = 'https://wa.me/5511999999999';
 
   return (
     <div className={`max-w-4xl mx-auto p-4 min-h-screen transition-colors duration-300 ${isDark ? 'dark:bg-gray-900' : ''}`}>
@@ -12,131 +18,88 @@ const ContactContent = () => {
           Vamos Conversar!
         </h1>
         <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-          Entre em contato através do formulário ou pelas redes sociais
+          Entre em contato através das redes sociais ou WhatsApp
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
-        {/* Formulário de Contato */}
-        <div className={`p-6 rounded-xl ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-sm`}>
-          <form className="space-y-6">
-            <div>
-              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                Nome
-              </label>
-              <input 
-                type="text" 
-                className={`w-full p-3 rounded-lg border transition-colors ${
-                  isDark 
-                    ? 'bg-gray-700 border-gray-600 focus:border-blue-400 text-gray-100' 
-                    : 'bg-gray-50 border-gray-200 focus:border-blue-500'
-                }`}
-                required
-              />
-            </div>
-
-            <div>
-              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                Email
-              </label>
-              <input 
-                type="email" 
-                className={`w-full p-3 rounded-lg border transition-colors ${
-                  isDark 
-                    ? 'bg-gray-700 border-gray-600 focus:border-blue-400 text-gray-100' 
-                    : 'bg-gray-50 border-gray-200 focus:border-blue-500'
-                }`}
-                required
-              />
-            </div>
-
-            <div>
-              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                Mensagem
-              </label>
-              <textarea 
-                rows="4"
-                className={`w-full p-3 rounded-lg border transition-colors ${
-                  isDark 
-                    ? 'bg-gray-700 border-gray-600 focus:border-blue-400 text-gray-100' 
-                    : 'bg-gray-50 border-gray-200 focus:border-blue-500'
-                }`}
-                required
-              ></textarea>
-            </div>
-
-            <button 
-              type="submit"
-              className={`w-full py-3 px-6 rounded-lg font-medium transition-colors duration-300 ${
+      <div className="flex justify-center">
+        <div className={`p-6 rounded-xl ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-sm w-full max-w-md`}>
+          <h2 className={`text-xl font-semibold mb-6 ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>
+            Conecte-se Comigo
+          </h2>
+          
+          <div className="space-y-4">
+            {/* GitHub */}
+            <a
+              href="https://github.com/oparcimonioso"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center p-3 rounded-lg transition-colors duration-300 ${
                 isDark 
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  ? 'hover:bg-gray-700 text-gray-300' 
+                  : 'hover:bg-gray-100 text-gray-600'
               }`}
             >
-              Enviar Mensagem
-            </button>
-          </form>
-        </div>
+              <FaGithub className="w-6 h-6 mr-3" />
+              <span>GitHub</span>
+            </a>
 
-        {/* Redes Sociais e CV */}
-        <div className="space-y-6">
-          <div className={`p-6 rounded-xl ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-sm`}>
-            <h2 className={`text-xl font-semibold mb-6 ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>
-              Conecte-se Comigo
-            </h2>
-            
-            <div className="space-y-4">
-              <a
-                href="https://github.com/oparcimonioso"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center p-3 rounded-lg transition-colors duration-300 ${
-                  isDark 
-                    ? 'hover:bg-gray-700 text-gray-300' 
-                    : 'hover:bg-gray-100 text-gray-600'
-                }`}
-              >
-                <FaGithub className="w-6 h-6 mr-3" />
-                <span>GitHub</span>
-              </a>
+            {/* LinkedIn */}
+            <a
+              href="https://www.linkedin.com/in/seu-linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center p-3 rounded-lg transition-colors duration-300 ${
+                isDark 
+                  ? 'hover:bg-gray-700 text-gray-300' 
+                  : 'hover:bg-gray-100 text-gray-600'
+              }`}
+            >
+              <FaLinkedin className="w-6 h-6 mr-3 text-blue-600" />
+              <span>LinkedIn</span>
+            </a>
 
-              <a
-                href="https://www.linkedin.com/in/seu-linkedin"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center p-3 rounded-lg transition-colors duration-300 ${
-                  isDark 
-                    ? 'hover:bg-gray-700 text-gray-300' 
-                    : 'hover:bg-gray-100 text-gray-600'
-                }`}
-              >
-                <FaLinkedin className="w-6 h-6 mr-3 text-blue-600" />
-                <span>LinkedIn</span>
-              </a>
+            {/* WhatsApp */}
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center p-3 rounded-lg transition-colors duration-300 ${
+                isDark 
+                  ? 'hover:bg-gray-700 text-gray-300' 
+                  : 'hover:bg-gray-100 text-gray-600'
+              }`}
+            >
+              <FaWhatsapp className="w-6 h-6 mr-3 text-green-500" />
+              <span>WhatsApp</span>
+            </a>
 
-              <a
-                href="mailto:seuemail@example.com"
-                className={`flex items-center p-3 rounded-lg transition-colors duration-300 ${
-                  isDark 
-                    ? 'hover:bg-gray-700 text-gray-300' 
-                    : 'hover:bg-gray-100 text-gray-600'
-                }`}
-              >
-                <FaEnvelope className="w-6 h-6 mr-3 text-red-500" />
-                <span>Email</span>
-              </a>
+            {/* Email */}
+            <a
+              href="mailto:seuemail@example.com"
+              className={`flex items-center p-3 rounded-lg transition-colors duration-300 ${
+                isDark 
+                  ? 'hover:bg-gray-700 text-gray-300' 
+                  : 'hover:bg-gray-100 text-gray-600'
+              }`}
+            >
+              <FaEnvelope className="w-6 h-6 mr-3 text-red-500" />
+              <span>Email</span>
+            </a>
 
-              <button
-                className={`w-full flex items-center p-3 rounded-lg transition-colors duration-300 ${
-                  isDark 
-                    ? 'hover:bg-gray-700 text-gray-300' 
-                    : 'hover:bg-gray-100 text-gray-600'
-                }`}
-              >
-                <FaFileDownload className="w-6 h-6 mr-3 text-green-500" />
-                <span>Baixar CV (PDF)</span>
-              </button>
-            </div>
+            {/* Download do PDF */}
+            <a
+              href={cvPdfUrl}
+              download="/files/curriculoGuilherme.pdf" // Nome do arquivo que será baixado
+              className={`w-full flex items-center p-3 rounded-lg transition-colors duration-300 ${
+                isDark 
+                  ? 'hover:bg-gray-700 text-gray-300' 
+                  : 'hover:bg-gray-100 text-gray-600'
+              }`}
+            >
+              <FaFileDownload className="w-6 h-6 mr-3 text-green-500" />
+              <span>Baixar CV (PDF)</span>
+            </a>
           </div>
         </div>
       </div>

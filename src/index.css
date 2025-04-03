@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+/* Reset de estilos do Instagram */
+.instagram-media {
+    margin: 0 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  /* Correção de layout para iframes */
+  iframe[data-instgrm-iframe] {
+    margin: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
