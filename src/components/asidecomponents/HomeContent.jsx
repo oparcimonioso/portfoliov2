@@ -9,7 +9,7 @@ const HomeContent = () => {
       {/* Imagem */}
       <div className="relative w-48 h-48 md:w-64 md:h-64">
         <img
-          src="/imagens/guilherme.png"
+          src="/images/guilherme.jpg"
           alt="Guilherme Nascimento"
           className={`w-full h-full object-cover rounded-full border-4 shadow-xl hover:scale-105 transition-all duration-300 ${
             isDark 
